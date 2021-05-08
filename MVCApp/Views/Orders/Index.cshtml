@@ -1,0 +1,54 @@
+﻿@model IEnumerable<OrdersJoined>
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Orders</h1>
+<table class="table table-bordered table-condensed table-striped table-hover sortable"
+   id="table"
+ 
+  
+  >
+    <thead>
+        <tr class="danger">
+            <th >
+                @Html.DisplayNameFor(model => model.order.Customer)
+            </th>
+            <th >
+                @Html.DisplayNameFor(model => model.order.CustomerId)
+            </th>
+            <th  >@Html.DisplayNameFor(model => model.order.OrderDate)</th>
+        </tr>
+    </thead>
+<tbody>
+@foreach (OrdersJoined item in Model)
+{   <tr>
+         <td>
+             @item.customer.ContactName
+            </td>
+            <td>
+             @item.order.CustomerId
+            </td>
+               <td>
+             @item.order.OrderDate.ToString().Substring(1,10)
+            </td>
+        </tr>
+ 
+}
+</tbody>
+</table>
+<script>
+    const getCellValue = (tr, idx) => tr.children[idx].innerText || tr.children[idx].textContent;
+
+const comparer = (idx, asc) => (a, b) => ((v1, v2) => 
+    v1 !== '' && v2 !== '' && !isNaN(v1) && !isNaN(v2) ? v1 - v2 : v1.toString().localeCompare(v2)
+    )(getCellValue(asc ? a : b, idx), getCellValue(asc ? b : a, idx));
+
+// do the work...
+document.querySelectorAll('th').forEach(th => th.addEventListener('click', (() => {
+    const table = th.closest('table');
+    Array.from(table.querySelectorAll('tr:nth-child(n+2)'))
+        .sort(comparer(Array.from(th.parentNode.children).indexOf(th), this.asc = !this.asc))
+        .forEach(tr => table.appendChild(tr) );
+})));
+</script>
