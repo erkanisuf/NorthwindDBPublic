@@ -13,10 +13,10 @@ namespace MVCApp.Data
         [Key]
         public int LoginId { get; set; }
         [Required]
-        [StringLength(50)]
+        [StringLength(50, MinimumLength = 4)]
         public string UserName { get; set; }
         [Required]
-        [StringLength(50)]
+        [StringLength(50, MinimumLength = 8)]
         public string PassWord { get; set; }
     }
 }

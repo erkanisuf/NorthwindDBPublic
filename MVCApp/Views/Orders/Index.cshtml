@@ -1,54 +1,115 @@
-﻿@model IEnumerable<OrdersJoined>
+﻿@model IEnumerable<MVCApp.Data.Order>
+
 @{
-    ViewData["Title"] = "Index";
+    ViewData["Title"] = "Random";
 }
 
-<h1>Orders</h1>
-<table class="table table-bordered table-condensed table-striped table-hover sortable"
-   id="table"
- 
-  
-  >
+<h1>Random</h1>
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+<table class="table dark">
     <thead>
-        <tr class="danger">
-            <th >
-                @Html.DisplayNameFor(model => model.order.Customer)
+        <tr class="table-dark">
+              <th>
+                Status
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.OrderDate)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.RequiredDate)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ShippedDate)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Freight)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ShipName)
+            </th>
+            <th>
+               Address
+            </th>
+            <th>
+               City
             </th>
             <th >
-                @Html.DisplayNameFor(model => model.order.CustomerId)
+              Region
             </th>
-            <th  >@Html.DisplayNameFor(model => model.order.OrderDate)</th>
+            <th>
+                Postcode
+            </th>
+            <th>
+                Country
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Customer)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Employee)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ShipVia)
+            </th>
+            <th></th>
         </tr>
     </thead>
-<tbody>
-@foreach (OrdersJoined item in Model)
-{   <tr>
-         <td>
-             @item.customer.ContactName
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+              
+              <td style="@(item.ShippedDate != null ? "color:green;" : "color:red;")">@(item.ShippedDate != null ? "OK" : "NOT")
             </td>
             <td>
-             @item.order.CustomerId
+                  @(item.OrderDate != null ? item.OrderDate.ToString().Substring(1,10) : "Not shipped yet")
             </td>
-               <td>
-             @item.order.OrderDate.ToString().Substring(1,10)
+            <td>
+                 @(item.RequiredDate != null ? item.RequiredDate.ToString().Substring(1,10) : "Not shipped yet")
+            </td>
+            <td>
+                @(item.ShippedDate != null ? item.ShippedDate.ToString().Substring(1,10) : "Not shipped yet")
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Freight)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ShipName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ShipAddress)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ShipCity)
+            </td>
+            <td>
+                @(item.ShipRegion != null ? item.ShipRegion : "-")
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ShipPostalCode)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ShipCountry)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Customer.ContactName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Employee.FirstName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ShipViaNavigation.CompanyName)
+            </td>
+            <td>
+                <div class="d-grid gap-2">
+                <a asp-action="Edit" asp-route-id="@item.OrderId" type="button" class="btn btn-warning">Edit</a> 
+                <a asp-action="Details" asp-route-id="@item.OrderId" type="button" class="btn btn-success">Details</a> 
+               @*   <a asp-action="Delete" asp-route-id="@item.OrderId">Delete</a>*@
+               </div>
             </td>
         </tr>
- 
 }
-</tbody>
+    </tbody>
 </table>
-<script>
-    const getCellValue = (tr, idx) => tr.children[idx].innerText || tr.children[idx].textContent;
-
-const comparer = (idx, asc) => (a, b) => ((v1, v2) => 
-    v1 !== '' && v2 !== '' && !isNaN(v1) && !isNaN(v2) ? v1 - v2 : v1.toString().localeCompare(v2)
-    )(getCellValue(asc ? a : b, idx), getCellValue(asc ? b : a, idx));
-
-// do the work...
-document.querySelectorAll('th').forEach(th => th.addEventListener('click', (() => {
-    const table = th.closest('table');
-    Array.from(table.querySelectorAll('tr:nth-child(n+2)'))
-        .sort(comparer(Array.from(th.parentNode.children).indexOf(th), this.asc = !this.asc))
-        .forEach(tr => table.appendChild(tr) );
-})));
-</script>
