@@ -2,10 +2,13 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using MVCApp.Data;
+
 
 namespace MVCApp.Controllers
 {
@@ -19,10 +22,14 @@ namespace MVCApp.Controllers
         }
 
         // GET: Shippers
+        [SessionAuth]
         public async Task<IActionResult> Index()
         {
+            
+            
             var northwindDB = _context.Shippers.Include(s => s.Region);
             return View(await northwindDB.ToListAsync());
+            
         }
 
         // GET: Shippers/Details/5

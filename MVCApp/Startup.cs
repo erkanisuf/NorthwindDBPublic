@@ -1,3 +1,4 @@
+using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -32,6 +33,9 @@ namespace MVCApp
                 options.Cookie.IsEssential = true;
                 options.Cookie.Name = "Logged";
             });
+
+            services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
+     .AddCookie();
             services.AddControllersWithViews();
             services.AddDbContext<Data.NorthwindDB>();
         }
@@ -53,7 +57,7 @@ namespace MVCApp
             app.UseStaticFiles();
 
             app.UseRouting();
-
+            app.UseAuthentication();
             app.UseAuthorization();
             app.UseSession();
             app.UseEndpoints(endpoints =>
