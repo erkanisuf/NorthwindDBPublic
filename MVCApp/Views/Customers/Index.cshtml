@@ -7,11 +7,11 @@
 <h1>Index</h1>
 
 <p>
-    <a asp-action="Create">Create New</a>
+    <a asp-action="Create" type="button" class="btn btn-primary">Create New</a>
 </p>
-<table class="table">
+<table class="table table-hover">
     <thead>
-        <tr>
+        <tr class="table-dark">
             <th>
                 @Html.DisplayNameFor(model => model.CompanyName)
             </th>
@@ -60,17 +60,18 @@
             <td>
                 @Html.DisplayFor(modelItem => item.Address)
             </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.City)
+         
+             <td>
+                @(item.City != null ? item.City.ToString() : "-")
+            </td>
+           <td>
+                @(item.Region != null ? item.Region.ToString() : "-")
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.Region)
+                @(item.PostalCode != null ? item.PostalCode.ToString() : "-")
             </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.PostalCode)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Country)
+             <td>
+                @(item.Country != null ? item.Country.ToString() : "-")
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.Phone)
@@ -79,9 +80,11 @@
                 @Html.DisplayFor(modelItem => item.Fax)
             </td>
             <td>
-                <a asp-action="Edit" asp-route-id="@item.CustomerId">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.CustomerId">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.CustomerId">Delete</a>
+                <div class="d-grid gap-2">
+                <a asp-action="Edit" asp-route-id="@item.CustomerId" type="button" class="btn btn-warning">Edit</a> 
+                <a asp-action="Details" asp-route-id="@item.CustomerId" type="button" class="btn btn-success">Details</a> 
+                <a asp-action="Delete" asp-route-id="@item.CustomerId" type="button" class="btn btn-danger">Delete</a>
+                </div>
             </td>
         </tr>
 }

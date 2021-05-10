@@ -5,11 +5,51 @@
 }
 
 <h1>Random</h1>
+<label >Choose a filter:</label>
+<select onchange="onSelect()" id="items">
 
+    <option value=1 selected="selected"> @Html.DisplayNameFor(model => model.OrderDate)</option>
+    <option value=2>@Html.DisplayNameFor(model => model.RequiredDate)</option>
+     <option value=3>
+               @Html.DisplayNameFor(model => model.ShippedDate)
+            </option>
+            <option value=4>
+                @Html.DisplayNameFor(model => model.Freight)
+            </option>
+            <option value=5>
+                @Html.DisplayNameFor(model => model.ShipName)
+            </option>
+            <option value=6>
+               Address
+            </option>
+            <option value=7>
+               City
+            </option>
+            <option value=8>
+              Region
+            </option>
+            <option>
+                Postcode
+            </option>
+            <option value=9>
+                Country
+            </option>
+            <option value=10>
+                @Html.DisplayNameFor(model => model.Customer)
+            </option>
+            <option value=11>
+                @Html.DisplayNameFor(model => model.Employee)
+            </option>
+            <option value=12>
+                @Html.DisplayNameFor(model => model.ShipVia)
+            </option>
+    </select>
+
+<input type="text" id="myInput" onkeyup="filterTable()" placeholder="Search for names.." title="Type in a name">
 <p>
-    <a asp-action="Create">Create New</a>
+    <a asp-action="Create" type="button" class="btn btn-primary">Create New</a>
 </p>
-<table class="table dark">
+<table class="table dark table-hover" id="myTable">
     <thead>
         <tr class="table-dark">
               <th>
@@ -113,3 +153,35 @@
 }
     </tbody>
 </table>
+
+<script>
+const select = document.getElementById("items")
+let selectedFilter = 1;
+function onSelect() {
+    
+    selectedFilter = Number(select.value);
+ 
+}
+function filterTable() {
+  // Declare variables
+  var input, filter, table, tr, td, i, txtValue;
+  input = document.getElementById("myInput");
+  filter = input.value.toUpperCase();
+  table = document.getElementById("myTable");
+          tr = table.getElementsByTagName("tr");
+  
+
+  // Loop through all table rows, and hide those who don't match the search query
+  for (i = 0; i < tr.length; i++) {
+    td = tr[i].getElementsByTagName("td")[selectedFilter];
+    if (td) {
+      txtValue = td.textContent || td.innerText;
+      if (txtValue.toUpperCase().indexOf(filter) > -1) {
+        tr[i].style.display = "";
+      } else {
+        tr[i].style.display = "none";
+      }
+    }
+  }
+}
+</script>
