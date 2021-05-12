@@ -58,11 +58,12 @@ namespace MVCApp.Data
         {
             if (!optionsBuilder.IsConfigured)
             {
-            optionsBuilder.UseSqlServer(Environment.GetEnvironmentVariable("DB"));
+            optionsBuilder.UseSqlServer("Data Source=DESKTOP-FA527TG;Initial Catalog=northwindtest;Persist Security Info=True;User ID=sa;Password=Need2260"
+        );
             }
         }
-
-        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        // Environment.GetEnvironmentVariable("DB")
+       protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.HasAnnotation("Relational:Collation", "SQL_Latin1_General_CP1_CI_AS");
 
@@ -92,6 +93,7 @@ namespace MVCApp.Data
             {
                 entity.Property(e => e.CustomerId).IsFixedLength(true);
             });
+
 
             modelBuilder.Entity<CustomerAndSuppliersByCity>(entity =>
             {
@@ -182,17 +184,17 @@ namespace MVCApp.Data
                 entity.HasOne(d => d.Customer)
                     .WithMany(p => p.Orders)
                     .HasForeignKey(d => d.CustomerId)
-                    .HasConstraintName("FK_Orders_Customers");
+                    .HasConstraintName("FK_Orders_Customers").OnDelete(DeleteBehavior.SetNull);
 
                 entity.HasOne(d => d.Employee)
                     .WithMany(p => p.Orders)
                     .HasForeignKey(d => d.EmployeeId)
-                    .HasConstraintName("FK_Orders_Employees");
+                    .HasConstraintName("FK_Orders_Employees").OnDelete(DeleteBehavior.SetNull);
 
                 entity.HasOne(d => d.ShipViaNavigation)
                     .WithMany(p => p.Orders)
                     .HasForeignKey(d => d.ShipVia)
-                    .HasConstraintName("FK_Orders_Shippers");
+                    .HasConstraintName("FK_Orders_Shippers").OnDelete(DeleteBehavior.SetNull);
             });
 
             modelBuilder.Entity<OrderDetail>(entity =>

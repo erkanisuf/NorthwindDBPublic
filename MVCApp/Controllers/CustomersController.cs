@@ -25,6 +25,7 @@ namespace MVCApp.Controllers
         }
 
         // GET: Customers/Details/5
+        [HttpGet]
         public async Task<IActionResult> Details(string id)
         {
             if (id == null)
@@ -32,14 +33,14 @@ namespace MVCApp.Controllers
                 return NotFound();
             }
 
-            var customer = await _context.Customers
+            var customer = await _context.Customers.Include(el=>el.Orders)
                 .FirstOrDefaultAsync(m => m.CustomerId == id);
             if (customer == null)
             {
                 return NotFound();
             }
 
-            return View(customer);
+            return Ok(customer);
         }
 
         // GET: Customers/Create

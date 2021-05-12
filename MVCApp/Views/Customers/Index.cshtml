@@ -1,15 +1,36 @@
 ﻿@model IEnumerable<MVCApp.Data.Customer>
 
 @{
-    ViewData["Title"] = "Index";
+    ViewData["Title"] = "Customers";
 }
 
-<h1>Index</h1>
+    
 
-<p>
+<h1>Customers</h1>
+<div class="d-flex justify-content-between">
+ 
+<label>Choose a filter:</label>
+<select onchange="onSelect()" id="items" class="form-select">
+    <option value=0 selected="selected">  @Html.DisplayNameFor(model => model.CompanyName)</option>
+    <option value=1>  @Html.DisplayNameFor(model => model.ContactName)</option>
+    <option value=2>    @Html.DisplayNameFor(model => model.ContactTitle) </option>
+    <option value=3> @Html.DisplayNameFor(model => model.Address) </option>
+    <option value=4>     @Html.DisplayNameFor(model => model.City)</option>
+    <option value=5> @Html.DisplayNameFor(model => model.Region)</option>
+    <option value=6>@Html.DisplayNameFor(model => model.PostalCode)</option>
+    <option value=7>  @Html.DisplayNameFor(model => model.Country) </option>
+    <option value=8>  @Html.DisplayNameFor(model => model.Phone)</option>
+    <option value=9> @Html.DisplayNameFor(model => model.Fax)</option>
+</select>
+
+<input   class="form-select" type="text" id="myInput" onkeyup="filterTable()" placeholder="Search for names.." title="Type in a name">
+
+<div >
     <a asp-action="Create" type="button" class="btn btn-primary">Create New</a>
-</p>
-<table class="table table-hover">
+</div>
+</div>
+@* Table *@
+<table class="table table-hover" id="myTable">
     <thead>
         <tr class="table-dark">
             <th>
@@ -82,11 +103,120 @@
             <td>
                 <div class="d-grid gap-2">
                 <a asp-action="Edit" asp-route-id="@item.CustomerId" type="button" class="btn btn-warning">Edit</a> 
-                <a asp-action="Details" asp-route-id="@item.CustomerId" type="button" class="btn btn-success">Details</a> 
+              @*   <a asp-action="Details" asp-route-id="@item.CustomerId" type="button" class="btn btn-success">Details</a>  *@
                 <a asp-action="Delete" asp-route-id="@item.CustomerId" type="button" class="btn btn-danger">Delete</a>
+                <button  id="@Html.DisplayFor(modelItem => item.CustomerId)" type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#modalid">
+  Orders
+</button>
+
                 </div>
             </td>
         </tr>
+         
 }
     </tbody>
 </table>
+<div class="modal fade" id="modalid" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-fullscreen">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body" >
+       <table class="table table-hover" id="myTable">
+    <thead>
+        <tr class="table-dark">
+            <th>
+               OrderDate
+            </th>
+            <th>
+               RequiredDate
+            </th>
+            <th>
+               ShipAddress
+            </th>
+            <th>
+                ShipCity:
+            </th>
+            <th>
+               ShipCountry
+            </th>
+            <th>
+              ShipName
+            </th>
+            <th>
+               ShipPostalCode
+            </th>
+            <th>
+                Freight
+            </th>
+           
+            <th></th>
+        </tr>
+    </thead>
+     <tbody  id="modalBody">
+         <tr>
+         @* Here goes JS Fetch *@
+          </tr>
+          </tbody>
+    
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+       
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<script>
+let body = document.getElementById('modalBody')
+
+document.querySelectorAll('.btn').forEach((el)=>{
+  el.addEventListener('click',(e)=> {
+    
+    if(e.target.id){
+        getItems(e.target.id)
+    }
+    
+  });
+});
+// Modal settins
+var myModal = document.getElementById('myModal')
+var myInput = document.getElementById('myInput')
+
+if (myModal){
+    myModal.addEventListener('shown.bs.modal', function (e) {
+  myInput.focus()
+ 
+})
+}
+
+// 
+   function getItems(customerid){
+     fetch(`Customers/Details/${customerid}`,{method:"GET"})
+  .then(response => response.json())
+  .then(data =>body.innerHTML = data.orders.map(el=>`
+  <tr>
+<td>${el.orderDate}</td>
+<td>${el.requiredDate}</td>
+<td>${el.shipAddress}</td>
+<td>${el.shipCity}</td>
+<td>${el.shipCountry}</td>
+<td>${el.shipName}</td>
+<td>${el.shipPostalCode}</td>
+<td>${el.freight}</td>
+</tr>
+
+`).join('')
+  
+  );
+}
+
+
+
+</script>
+<script src="~/js/sorting.js" ></script>
+    <script src="~/js/search.js" ></script>

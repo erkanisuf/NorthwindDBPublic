@@ -66,6 +66,39 @@ namespace MVCApp.Controllers
 
             return View();
         }
+        // GET: Customers/Delete/5
+        public async Task<IActionResult> Delete(int id)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
+
+            var order = await _context.Orders
+                .FirstOrDefaultAsync(m => m.OrderId == id);
+            if (order == null)
+            {
+                return NotFound();
+            }
+
+            return View(order);
+        }
+
+        // POST: Customers/Delete/5
+        [HttpPost, ActionName("Delete")]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> DeleteConfirmed(int id)
+        {
+            var order = await _context.Orders.FindAsync(id);
+            _context.Orders.Remove(order);
+            await _context.SaveChangesAsync();
+            return RedirectToAction(nameof(Index));
+        }
+
+        private bool CustomerExists(string id)
+        {
+            return _context.Orders.Any(e => e.CustomerId == id);
+        }
 
     }
 }
