@@ -1,14 +1,15 @@
-﻿const select = document.getElementById("items");
+﻿const select = document.getElementById("itemsSelect");
 let input, filter, table, tr, td, i, txtValue;
 let selectedFilter = 1;
 function onSelect() {
   selectedFilter = Number(select.value);
+  console.log(select);
 }
 
 function filterTable() {
   // Declare variables
 
-  input = document.getElementById("myInput");
+  input = document.getElementById("myInputSearch");
   filter = input.value.toUpperCase();
   table = document.getElementById("myTable");
   tr = table.getElementsByTagName("tr");
