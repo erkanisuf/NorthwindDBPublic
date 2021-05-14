@@ -23,6 +23,7 @@ namespace MVCApp.Data
         [Key]
         [Column("CustomerID")]
         [StringLength(5)]
+      
         public string CustomerId { get; set; }
         [Required]
         [StringLength(40)]

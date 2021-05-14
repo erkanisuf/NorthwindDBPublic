@@ -1,24 +1,33 @@
 ﻿@model IEnumerable<MVCApp.Data.Product>
 
 @{
-    ViewData["Title"] = "Index";
+    ViewData["Title"] = "Products";
 }
 
-<h1>Index</h1>
+<h1 class="text-center">Products</h1>
+<p class="text-center">Total products: @Model.Count()</p>
+<div class="searchContainer" style="margin:35px auto;width:80%;">
+<div class="d-inline-flex align-items-center">
+<input   class="form-control mx-2" type="text" id="searchProduct" onkeyup="searchProduct()" placeholder="Search for names.." title="Type in a name">
+</div>
 
+<div >
+     
+    <a asp-action="Create" type="button" class="btn btn-primary">Create New <i class="bi bi-file-earmark-plus"></i></a>
+</div>
+</div>
 
-    <a asp-action="Create" type="button" class="btn btn-primary">Create New</a>
-    <p>@Model.Count()</p>
-
-    <div class="container">
-<div class="row row-cols-1 row-cols-md-4 g-4">
+    
+    
+    <div class="container-fluid" >
+<div class="row row-cols-1 row-cols-md-6 g-4 justify-content-center">
   
 @foreach (var item in Model) {
-    <div class="col">
-<div class="card" style="width: 18rem;min-height:700px;">
-  <img height="160px" style="object-fit:contain;" src="@(item.ImageLink != null ? item.ImageLink : "https://st3.depositphotos.com/23594922/31822/v/600/depositphotos_318221368-stock-illustration-missing-picture-page-for-website.jpg") " class="card-img-top" alt="@item.ProductName">
+    <div class="col m-1" id="productCard" >
+<div class="card rounded p-2" style="min-height:800px;" >
+  <img height="160px"  style="object-fit:contain;" src="@(item.ImageLink != null ? item.ImageLink : "https://st3.depositphotos.com/23594922/31822/v/600/depositphotos_318221368-stock-illustration-missing-picture-page-for-website.jpg") " class="card-img-top" alt="@item.ProductName">
   <div class="card-body">
-    <h5 class="card-title fs-6 fw-bold">@item.ProductName</h5>
+    <h5 class="card-title fs-6 fw-bold" >@item.ProductName</h5>
   </div>
  <div class="d-flex flex-column bd-highlight mb-3">
     <div class="p-2 bd-highlight border-bottom">Quantity: @item.QuantityPerUnit</div>
@@ -28,14 +37,13 @@
     <div class="p-2 bd-highlight border-bottom">Reorder level: @item.ReorderLevel</div>
     <div class="p-2 bd-highlight border-bottom">Discounted: @item.Discontinued</div>
     <div class="p-2 bd-highlight border-bottom">Category: @item.Category.CategoryName</div>
-    <div class="p-2 bd-highlight border-bottom">Supplier: @item.Supplier.CompanyName</div>
+    <div class="p-2 bd-highlight border-bottom pb-5" >Supplier: @item.Supplier.CompanyName</div>
   
   </div>
 
   <div class="card-body text-center" style="line-height:80px" >
-     <a asp-action="Edit" asp-route-id="@item.ProductId">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.ProductId">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.ProductId">Delete</a>
+     <a asp-action="Edit" asp-route-id="@item.ProductId" type="button" class="btn btn-warning" data-bs-toggle="tooltip"  data-bs-placement="top" title="Edit">Edit  <i class="bi bi-pen"></i></a> 
+                <a asp-action="Delete" asp-route-id="@item.ProductId" type="button" class="btn btn-danger" data-bs-toggle="tooltip"  data-bs-placement="top" title="Delete">Delete <i class="bi bi-trash2-fill"></i></a>
   </div>
 </div>
 </div>
@@ -44,3 +52,17 @@
 
 </div>
 </div>
+<script>
+let input = document.getElementById("searchProduct");
+    let card = document.querySelectorAll("#productCard");
+   function searchProduct() {
+    
+    for (i=0; i<card.length;i++){
+        if (card[i].querySelector("h5").textContent.toUpperCase().includes(input.value.toUpperCase())){
+            card[i].style.display=''
+        }else{
+            card[i].style.display='none'
+        }
+    }
+    }
+</script>

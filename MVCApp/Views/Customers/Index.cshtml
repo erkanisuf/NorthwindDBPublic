@@ -5,7 +5,8 @@
 }
 
 
-<h1>Customers</h1>
+<h1 class="text-center">Customers</h1>
+<p class="text-center">Total customers: @Model.Count()</p>
 <div class="searchContainer">
  <div class="d-inline-flex align-items-center">
  <div class="col-auto my-1 d-inline-flex align-items-center">
@@ -106,10 +107,10 @@
             </td>
             <td>
                 <div class="btnsdiv">
-                <a asp-action="Edit" asp-route-id="@item.CustomerId" type="button" class="btn btn-warning"><i class="bi bi-pen"></i></a> 
-                <a asp-action="Delete" asp-route-id="@item.CustomerId" type="button" class="btn btn-danger"><i class="bi bi-trash2-fill"></i></a>
-                <button  id="@Html.DisplayFor(modelItem => item.CustomerId)" type="button" class="btn btn-success modalbtn" data-bs-toggle="modal" data-bs-target="#modalid">
-                  <i class="bi bi-cart2"></i>
+                <a asp-action="Edit" asp-route-id="@item.CustomerId" type="button" class="btn btn-warning" data-bs-toggle="tooltip"  data-bs-placement="top" title="Edit"><i class="bi bi-pen"></i></a> 
+                <a asp-action="Delete" asp-route-id="@item.CustomerId" type="button" class="btn btn-danger" data-bs-toggle="tooltip"  data-bs-placement="top" title="Delete"><i class="bi bi-trash2-fill"></i></a>
+                <button  id="@Html.DisplayFor(modelItem => item.CustomerId)" type="button" class="btn btn-success modalbtn" data-bs-toggle="modal" data-bs-target="#modalid" data-bs-toggle="tooltip"  data-bs-placement="top" title="Customers Orders">
+                  <i class="bi bi-cart2" id="@Html.DisplayFor(modelItem => item.CustomerId)"></i>
                 </button>
                     
 @* @Html.Partial("Details",item) *@

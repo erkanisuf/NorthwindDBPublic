@@ -54,8 +54,9 @@ namespace MVCApp.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("CustomerId,CompanyName,ContactName,ContactTitle,Address,City,Region,PostalCode,Country,Phone,Fax")] Customer customer)
+        public async Task<IActionResult> Create([Bind("CompanyName,ContactName,ContactTitle,Address,City,Region,PostalCode,Country,Phone,Fax")] Customer customer)
         {
+            customer.CustomerId = RandomString(5);
             if (ModelState.IsValid)
             {
                 _context.Add(customer);
@@ -65,6 +66,14 @@ namespace MVCApp.Controllers
             return View(customer);
         }
 
+        //Random string for the DB ID
+        private static Random random = new Random();
+        public static string RandomString(int length)
+        {
+            const string chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
+            return new string(Enumerable.Repeat(chars, length)
+              .Select(s => s[random.Next(s.Length)]).ToArray());
+        }
         // GET: Customers/Edit/5
         public async Task<IActionResult> Edit(string id)
         {

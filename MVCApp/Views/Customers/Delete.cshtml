@@ -1,16 +1,16 @@
 ﻿@model MVCApp.Data.Customer
 
 @{
-    ViewData["Title"] = "Delete";
+    ViewData["Title"] = "Delete Customer";
 }
 
 <h1>Delete</h1>
 
 <h3>Are you sure you want to delete this?</h3>
 <div>
-    <h4>Customer</h4>
+    
     <hr />
-    <dl class="row bg-secondary bg-gradient p-5" >
+    <dl class="row bg-dark bg-gradient p-5 text-white h4" >
         <dt class = "col-2">
             @Html.DisplayNameFor(model => model.CompanyName)
         </dt>
@@ -30,47 +30,47 @@
             @Html.DisplayFor(model => model.ContactTitle)
         </dd>
 
-        <div class = "row col-10 border-top justify-content-center mt-5 bg-light bg-gradient p-2 rounded">
-        <dt class = "col-2 border-start ">
+        <div class = "row col-10 border-top justify-content-center mt-5 bg-light p-2 rounded text-dark h6">
+        <dt class = "col-10 border-start ">
             @Html.DisplayNameFor(model => model.Address)
         </dt>
-        <dd class = "col-2 border-start">
+        <dd class = "col-10 border-start">
             @Html.DisplayFor(model => model.Address)
         </dd>
-        <dt class = "col-2 border-start">
+        <dt class = "col-10 border-start">
             @Html.DisplayNameFor(model => model.City)
         </dt>
-        <dd class = "col-2 border-start">
+        <dd class = "col-10 border-start">
             @Html.DisplayFor(model => model.City)
         </dd>
-        <dt class = "col-2 border-start">
+        <dt class = "col-10 border-start">
             @Html.DisplayNameFor(model => model.Region)
         </dt>
-        <dd class = "col-2 border-start">
+        <dd class = "col-10 border-start">
             @Html.DisplayFor(model => model.Region)
         </dd>
-        <dt class = "col-2 border-start">
+        <dt class = "col-10 border-start">
             @Html.DisplayNameFor(model => model.PostalCode)
         </dt>
-        <dd class = "col-2 border-start">
+        <dd class = "col-10 border-start">
             @Html.DisplayFor(model => model.PostalCode)
         </dd>
-        <dt class = "col-2 border-start">
+        <dt class = "col-10 border-start">
             @Html.DisplayNameFor(model => model.Country)
         </dt>
-        <dd class = "col-2 border-start">
+        <dd class = "col-10 border-start">
             @Html.DisplayFor(model => model.Country)
         </dd>
-        <dt class = "col-2 border-start">
+        <dt class = "col-10 border-start">
             @Html.DisplayNameFor(model => model.Phone)
         </dt>
-        <dd class = "col-2 border-start">
+        <dd class = "col-10 border-start">
             @Html.DisplayFor(model => model.Phone)
         </dd>
-        <dt class = "col-2 border-start">
+        <dt class = "col-10 border-start">
             @Html.DisplayNameFor(model => model.Fax)
         </dt>
-        <dd class = "col-2 border-start">
+        <dd class = "col-10 border-start">
             @Html.DisplayFor(model => model.Fax)
         </dd>
         </div>

@@ -5,26 +5,23 @@ modalbtn.forEach(el => {
   el.addEventListener("click", e => {
     if (e.target.id) {
       getItems(e.target.id);
+    } else {
+      body.innerHTML = "<h3>error something went wrong !</h3>";
     }
   });
 });
 // Modal settins
-var myModal = document.getElementById("modalid");
-var myInput = document.getElementById("myInput");
-
-if (myModal) {
-  myModal.addEventListener("shown.bs.modal", function(e) {
-    myInput.focus();
-  });
-}
 
 //
 function getItems(customerid) {
+  body.innerHTML = "<h3>Loading data...</h3>";
   fetch(`Customers/Details/${customerid}`, { method: "GET" })
     .then(response => response.json())
-    .then(
-      data =>
-        (body.innerHTML = data.orders
+    .then(data => {
+      if (!data.orders.length) {
+        body.innerHTML = "<h3>Customer has no orders in list!</h3>";
+      } else {
+        body.innerHTML = data.orders
           .map(
             el => `
   <tr>
@@ -40,6 +37,7 @@ function getItems(customerid) {
 
 `
           )
-          .join(""))
-    );
+          .join("");
+      }
+    });
 }

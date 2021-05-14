@@ -1,6 +1,6 @@
 ﻿const select = document.getElementById("itemsSelect");
 let input, filter, table, tr, td, i, txtValue;
-let selectedFilter = 1;
+let selectedFilter = 0;
 function onSelect() {
   selectedFilter = Number(select.value);
   console.log(select);
