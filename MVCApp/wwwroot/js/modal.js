@@ -39,5 +39,6 @@ function getItems(customerid) {
           )
           .join("");
       }
-    });
+    })
+    .catch(er => (body.innerHTML = "<h3>error something went wrong !</h3>"));
 }

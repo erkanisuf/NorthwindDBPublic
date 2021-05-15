@@ -24,6 +24,7 @@ namespace MVCApp.Data
         [Column(TypeName = "money")]
         public decimal UnitPrice { get; set; }
         public short Quantity { get; set; }
+        [Range(0, 1,ErrorMessage ="Range between 0-0.99")]
         public float Discount { get; set; }
 
         [ForeignKey(nameof(OrderId))]

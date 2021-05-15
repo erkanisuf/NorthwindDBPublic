@@ -35,7 +35,7 @@
     <div class="p-2 bd-highlight border-bottom">In Stock: @item.UnitsInStock</div>
     <div class="p-2 bd-highlight border-bottom">Orders: @item.UnitsOnOrder</div>
     <div class="p-2 bd-highlight border-bottom">Reorder level: @item.ReorderLevel</div>
-    <div class="p-2 bd-highlight border-bottom">Discounted: @item.Discontinued</div>
+    <div class="p-2 bd-highlight border-bottom">Discounted:<span class='badge @(item.Discontinued ? "bg-success":"bg-danger")'>@(item.Discontinued ? "Yes":"No")</span></div>
     <div class="p-2 bd-highlight border-bottom">Category: @item.Category.CategoryName</div>
     <div class="p-2 bd-highlight border-bottom pb-5" >Supplier: @item.Supplier.CompanyName</div>
   

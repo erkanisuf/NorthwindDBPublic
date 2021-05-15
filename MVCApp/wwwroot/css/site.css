@@ -136,3 +136,6 @@ body {
 .btnsdiv a{
     margin:0 2px;
 }
+.btn-secondary {
+    font-size: 18px;
+}

@@ -1,4 +1,4 @@
-﻿@model MVCApp.Data.Order
+﻿@model MVCApp.Models.OrdersJoined
 
 @{
     ViewData["Title"] = "Create";
@@ -8,68 +8,90 @@
 
 <h4>Order</h4>
 <hr />
-<div class="row">
+<div class="row justify-content-center">
     <div class="col-md-4">
         <form asp-action="Create">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <div class="form-group">
-                <label asp-for="CustomerId" class="control-label"></label>
-                <select asp-for="CustomerId" class ="form-control" asp-items="ViewBag.CustomerId"></select>
+             <div class="form-group">
+              <label asp-for="orderdetail.Product" class="control-label"></label>
+                <select asp-for="orderdetail.ProductId" class ="form-control" asp-items="ViewBag.ProductId"></select>
+            </div>
+             <div class="form-group">
+                <label asp-for="orderdetail.UnitPrice" class="control-label"></label>
+                <input asp-for="orderdetail.UnitPrice" class="form-control" />
+                <span asp-validation-for="orderdetail.UnitPrice" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="EmployeeId" class="control-label"></label>
-                <select asp-for="EmployeeId" class ="form-control" asp-items="ViewBag.EmployeeId"></select>
+                <label asp-for="orderdetail.Discount" class="control-label"></label>
+                <input asp-for="orderdetail.Discount" class="form-control" />
+                <span asp-validation-for="orderdetail.Discount" class="text-danger"></span>
+            </div>
+             <div class="form-group">
+                <label asp-for="orderdetail.Quantity" class="control-label"></label>
+                <input asp-for="orderdetail.Quantity" class="form-control" />
+                <span asp-validation-for="orderdetail.Quantity" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="OrderDate" class="control-label"></label>
-                <input asp-for="OrderDate" class="form-control" />
-                <span asp-validation-for="OrderDate" class="text-danger"></span>
+                <label asp-for="order.Customer" class="control-label"></label>
+                  <select asp-for="order.CustomerId" class ="form-control" asp-items="ViewBag.CustomerId"></select>
+                <span asp-validation-for="order.CustomerId" class="text-danger"></span>
+            </div>
+               <div class="form-group">
+                <label asp-for="order.Employee" class="control-label"></label>
+                  <select asp-for="order.EmployeeId" class ="form-control" asp-items="ViewBag.EmployeeId"></select>
+                <span asp-validation-for="order.EmployeeId" class="text-danger"></span>
+            </div>
+               <div class="form-group">
+                <label asp-for="order.ShipVia" class="control-label"></label>
+                  <select asp-for="order.ShipVia" class ="form-control" asp-items="ViewBag.ShipVia"></select>
+                <span asp-validation-for="order.ShipVia" class="text-danger"></span>
+            </div>
+              <div class="form-group">
+                <label asp-for="order.ShipCountry" class="control-label"></label>
+                <input asp-for="order.ShipCountry" class="form-control" />
+                <span asp-validation-for="order.ShipCountry" class="text-danger"></span>
+            </div>
+              <div class="form-group">
+                <label asp-for="order.ShipPostalCode" class="control-label"></label>
+                <input asp-for="order.ShipPostalCode" class="form-control" />
+                <span asp-validation-for="order.ShipPostalCode" class="text-danger"></span>
+            </div>
+             <div class="form-group">
+                <label asp-for="order.ShipRegion" class="control-label"></label>
+                <input asp-for="order.ShipRegion" class="form-control" />
+                <span asp-validation-for="order.ShipRegion" class="text-danger"></span>
+            </div>
+              <div class="form-group">
+                <label asp-for="order.ShipAddress" class="control-label"></label>
+                <input asp-for="order.ShipAddress" class="form-control" />
+                <span asp-validation-for="order.ShipAddress" class="text-danger"></span>
+            </div>
+              <div class="form-group">
+                <label asp-for="order.ShipName" class="control-label"></label>
+                <input asp-for="order.ShipName" class="form-control" />
+                <span asp-validation-for="order.ShipName" class="text-danger"></span>
+            </div>
+             <div class="form-group">
+                <label asp-for="order.Freight" class="control-label"></label>
+                <input asp-for="order.Freight" class="form-control" />
+                <span asp-validation-for="order.Freight" class="text-danger"></span>
+            </div>  
+            <div class="form-group">
+                <label asp-for="order.OrderDate" class="control-label"></label>
+                <input asp-for="order.OrderDate" class="form-control" />
+                <span asp-validation-for="order.OrderDate" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="RequiredDate" class="control-label"></label>
-                <input asp-for="RequiredDate" class="form-control" />
-                <span asp-validation-for="RequiredDate" class="text-danger"></span>
+                <label asp-for="order.RequiredDate" class="control-label"></label>
+                <input asp-for="order.RequiredDate" class="form-control" />
+                <span asp-validation-for="order.RequiredDate" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="ShippedDate" class="control-label"></label>
-                <input asp-for="ShippedDate" class="form-control" />
-                <span asp-validation-for="ShippedDate" class="text-danger"></span>
+                <label asp-for="order.ShippedDate" class="control-label"></label>
+                <input asp-for="order.ShippedDate" class="form-control" />
+                <span asp-validation-for="order.ShippedDate" class="text-danger"></span>
             </div>
-            <div class="form-group">
-                <label asp-for="ShipVia" class="control-label"></label>
-                <select asp-for="ShipVia" class ="form-control" asp-items="ViewBag.ShipVia"></select>
-            </div>
-            <div class="form-group">
-                <label asp-for="ShipName" class="control-label"></label>
-                <input asp-for="ShipName" class="form-control" />
-                <span asp-validation-for="ShipName" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="ShipAddress" class="control-label"></label>
-                <input asp-for="ShipAddress" class="form-control" />
-                <span asp-validation-for="ShipAddress" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="ShipCity" class="control-label"></label>
-                <input asp-for="ShipCity" class="form-control" />
-                <span asp-validation-for="ShipCity" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="ShipRegion" class="control-label"></label>
-                <input asp-for="ShipRegion" class="form-control" />
-                <span asp-validation-for="ShipRegion" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="ShipPostalCode" class="control-label"></label>
-                <input asp-for="ShipPostalCode" class="form-control" />
-                <span asp-validation-for="ShipPostalCode" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="ShipCountry" class="control-label"></label>
-                <input asp-for="ShipCountry" class="form-control" />
-                <span asp-validation-for="ShipCountry" class="text-danger"></span>
-            </div>
-            <div class="form-group">
+              <div class="form-group">
                 <input type="submit" value="Create" class="btn btn-primary" />
             </div>
         </form>

@@ -10,6 +10,6 @@ namespace MVCApp.Models
     {
         public Order order { get; set; }
         public OrderDetail orderdetail { get; set; }
-        public Customer customer { get; set; }
+       
     }
 }

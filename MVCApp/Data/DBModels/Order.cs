@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using Microsoft.AspNetCore.Mvc.ModelBinding;
 using Microsoft.EntityFrameworkCore;
 
 #nullable disable
@@ -28,29 +29,49 @@ namespace MVCApp.Data
         public int OrderId { get; set; }
         [Column("CustomerID")]
         [StringLength(5)]
+        [Required]
         public string CustomerId { get; set; }
         [Column("EmployeeID")]
+        [Required]
         public int? EmployeeId { get; set; }
         [Column(TypeName = "datetime")]
+        
+        [Required]
         public DateTime? OrderDate { get; set; }
         [Column(TypeName = "datetime")]
+        [Required]
         public DateTime? RequiredDate { get; set; }
         [Column(TypeName = "datetime")]
+        
         public DateTime? ShippedDate { get; set; }
+        
         public int? ShipVia { get; set; }
         [Column(TypeName = "money")]
+        [Required]
         public decimal? Freight { get; set; }
-        [StringLength(40)]
+        [StringLength(40,MinimumLength =4,ErrorMessage = "Minimum Length of 4chars")]
+
+        [Required]
         public string ShipName { get; set; }
         [StringLength(60)]
+
+        [Required]
         public string ShipAddress { get; set; }
         [StringLength(15)]
+
+        [Required]
         public string ShipCity { get; set; }
         [StringLength(15)]
+
+        
         public string ShipRegion { get; set; }
         [StringLength(10)]
+
+        
         public string ShipPostalCode { get; set; }
         [StringLength(15)]
+
+        [Required]
         public string ShipCountry { get; set; }
 
         [ForeignKey(nameof(CustomerId))]

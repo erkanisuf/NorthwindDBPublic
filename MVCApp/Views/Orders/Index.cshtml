@@ -4,10 +4,15 @@
     ViewData["Title"] = "Orders";
 }
 
-<h1>Orders</h1>
-<label>Choose a filter:</label>
-<select onchange="onSelect()" id="items">
-    <option value=1 selected="selected"> @Html.DisplayNameFor(model => model.OrderDate)</option>
+<h1 class="text-center">Orders</h1>
+<p class="text-center">Total orders: @Model.Count()</p>
+<div class="searchContainer">
+ <div class="d-inline-flex align-items-center">
+ <div class="col-auto my-1 d-inline-flex align-items-center">
+<label class="col-auto mx-2" >Choose a filter:</label>
+<select onchange="onSelect()" id="itemsSelect" class="form-select">
+ <option value=0 selected="selected"> Select Filter</option>
+    <option value=1 > @Html.DisplayNameFor(model => model.OrderDate)</option>
     <option value=2>@Html.DisplayNameFor(model => model.RequiredDate)</option>
     <option value=3>@Html.DisplayNameFor(model => model.ShippedDate) </option>
     <option value=4>@Html.DisplayNameFor(model => model.Freight) </option>
@@ -21,11 +26,18 @@
     <option value=12> @Html.DisplayNameFor(model => model.Employee)</option>
     <option value=13>  @Html.DisplayNameFor(model => model.ShipVia) </option>
 </select>
+</div>
+<div class="col-auto my-1">
+<input   class="form-control mx-2" type="text" id="myInputSearch" onkeyup="filterTable()" placeholder="Search for names.." title="Type in a name">
+</div>
+</div>
 
-<input type="text" id="myInput" onkeyup="filterTable()" placeholder="Search for names.." title="Type in a name">
-<p>
-    <a asp-action="Create" type="button" class="btn btn-primary">Create New</a>
-</p>
+<div >
+     <a asp-action="Create"  type="button" class="btn btn-primary">New Order <i class="bi bi-file-earmark-plus"></i></a> 
+</div>
+</div>
+
+
 <table class="table dark table-hover" id="myTable">
     <thead>
         <tr class="table-dark">
@@ -71,7 +83,7 @@
             <th>
                 @Html.DisplayNameFor(model => model.ShipVia)
             </th>
-            <th></th>
+            <th>Actions</th>
         </tr>
     </thead>
     <tbody>
@@ -79,8 +91,10 @@
         {
             <tr>
 
-                <td style="@(item.ShippedDate != null ? "color:green;" : "color:red;")">
-                    @(item.ShippedDate != null ? "OK" : "NOT")
+                <td >
+                   
+                    <span class='badge @(item.ShippedDate != null ? "bg-success":"bg-danger")'>@(item.ShippedDate != null? "Shipped":"Not")</span>
+               
                 </td>
                 <td>
                     @(item.OrderDate != null ? item.OrderDate.ToString().Substring(1,10) : "Not shipped yet")
@@ -125,17 +139,38 @@
                     @Html.DisplayFor(modelItem => item.ShipViaNavigation.CompanyName)
                 </td>
                 <td>
-                    <div class="d-grid gap-2">
-                        <a asp-action="Edit" asp-route-id="@item.OrderId" type="button" class="btn btn-warning">Edit</a>
-                        <a asp-action="Details" asp-route-id="@item.OrderId" type="button" class="btn btn-success">Details</a>
-                    <a asp-action="Delete" asp-route-id="@item.OrderId" type="button" class="btn btn-danger">Delete</a>
+                    <div class="btnsdiv">
+                        <a asp-action="Edit" asp-route-id="@item.OrderId" type="button" class="btn btn-warning" data-bs-toggle="tooltip"  data-bs-placement="top" title="Edit"><i class="bi bi-pen"></i></a> 
+                        <a asp-action="Delete" asp-route-id="@item.OrderId"  type="button" class="btn btn-danger" data-bs-toggle="tooltip"  data-bs-placement="top" title="Delete"><i class="bi bi-trash2-fill"></i></a>
+                        <button id="@item.OrderId" type="button"  class="btn btn-success modalbtn" data-bs-toggle="modal" data-bs-target="#orderModal" data-bs-toggle="tooltip"  data-bs-placement="top" title="Order Details">
+  <i class="bi bi-info-circle-fill" id="@item.OrderId"></i>
+</button>
+                   
                     </div>
                 </td>
             </tr>
         }
     </tbody>
 </table>
+<div class="modal fade" id="orderModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-xl">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Order Details: <span id="orderID"></span></h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body row row-cols-1 row-cols-md-6 g-4 justify-content-center m-3" id="orderModalBody">
+         
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary " data-bs-dismiss="modal">Close</button>
+       <a id="asporderID" asp-action="OrderDetailCreate" asp-route-id=""  type="button" class="btn btn-primary " data-bs-toggle="tooltip"  data-bs-placement="top" title="Add Products"> <i class="bi bi-plus-circle-fill p-1"></i></a>
+      </div>
+    </div>
+  </div>
+</div>
 
+<script src="@Url.Content("~/js/search.js")" ></script>
+<script src="@Url.Content("~/js/sorting.js")"></script>
+<script src="@Url.Content("~/js/orderModal.js")"></script>
 
-    <script src="~/js/sorting.js" ></script>
-    <script src="~/js/search.js" ></script>
