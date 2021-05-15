@@ -47,6 +47,11 @@
                 <span asp-validation-for="order.ShipVia" class="text-danger"></span>
             </div>
               <div class="form-group">
+                <label asp-for="order.ShipCity" class="control-label"></label>
+                <input asp-for="order.ShipCity" class="form-control" />
+                <span asp-validation-for="order.ShipCity" class="text-danger"></span>
+            </div>
+              <div class="form-group">
                 <label asp-for="order.ShipCountry" class="control-label"></label>
                 <input asp-for="order.ShipCountry" class="form-control" />
                 <span asp-validation-for="order.ShipCountry" class="text-danger"></span>

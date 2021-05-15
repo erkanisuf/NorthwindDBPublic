@@ -113,23 +113,28 @@ namespace MVCApp.Controllers
         {
             // adds to orders and orders details at same time
             var items = neworder;
+            var details = items.orderdetail;
             if (ModelState.IsValid)
             {
-                _context.Add(neworder.order);
+                _context.Add(items.order);
                var result =  await _context.SaveChangesAsync();
-               var returnedID = neworder.order.OrderId;
- // if its first saved to orders table then it returns id wit the save and then adds the rest to orders detail.
+               var returnedID = items.order.OrderId;
+                details.OrderId = returnedID;
+                // if its first saved to orders table then it returns id wit the save and then adds the rest to orders detail.
                 if (result > 0)
                 {
-                    var details = neworder.orderdetail;
-                    details.OrderId = returnedID;
-                    _context.Add(details );
+                    
+                    _context.Add(details);
                    await _context.SaveChangesAsync();
                     return RedirectToAction(nameof(Index));
+
                 }
             }
-           
-            return View(neworder.order);
+            ViewData["CustomerId"] = new SelectList(_context.Customers, "CustomerId", "ContactName");
+            ViewData["EmployeeId"] = new SelectList(_context.Employees, "EmployeeId", "FirstName");
+            ViewData["ShipVia"] = new SelectList(_context.Shippers, "ShipperId", "CompanyName");
+            ViewData["ProductId"] = new SelectList(_context.Products, "ProductId", "ProductName");
+            return View();
         }
 
         // Add more items to Order Details
@@ -153,8 +158,8 @@ namespace MVCApp.Controllers
                var result =  await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            
-            return View(newdetail);
+
+            return RedirectToAction(nameof(Index));
         }
         // GET: Customers/Delete/5
         public async Task<IActionResult> Delete(int? id)
