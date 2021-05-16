@@ -1,17 +1,32 @@
 ﻿/* Please see documentation at https://docs.microsoft.com/aspnet/core/client-side/bundling-and-minification
 for details on configuring this project to bundle and minify static web assets. */
 @import url('https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Righteous&display=swap');
 body {
     font-family: 'Open Sans', sans-serif !important;
  
     box-sizing:border-box;
 
 }
-.containerBody {
-    width: 90%;
-   
-    margin:0 auto;
+.navbar-brand {
+    font-family: 'Righteous', cursive;
+    color: white;
+    letter-spacing: 2px;
+    font-size: 30px;
 }
+    .navbar-brand i {
+        color: #0FA98F;
+    }
+        .navbar-brand i:hover {
+            color: #13B6F6;
+        }
+        .navbar-brand:hover {
+            color: #0FA98F;
+        }
+    .containerBody {
+        width: 90%;
+        margin: 0 auto;
+    }
 main{
     width:100%;
    
@@ -138,4 +153,54 @@ body {
 }
 .btn-secondary {
     font-size: 18px;
+}
+
+.offcanvas {
+    background-color: #212529;
+    color:white;
+    width: 20%;
+}
+.offcanvas-body {
+    border-radius: 0px 15px 15px 0px;
+    background-color: white;
+    width: 80%;
+    display:flex;
+    justify-content: space-between!important;
+    
+}
+    .offcanvas-body .d-flex{
+     
+        width:100%;
+    }
+    .navbar {
+        background-color: #212529;
+        width: 100% !important;
+    }
+.navbar-nav {
+    justify-content: space-evenly !important;
+    width:100%!important;
+}
+.nav-item {
+    border-bottom: 1px solid #ccc;
+    transition: 0.5s;
+}
+.nav-item i{
+    
+    font-size:30px;
+    margin-right:10px;
+    
+}
+.nav-item:hover {
+    width: 100%;
+    background-color: #ccc !important;
+    border-radius:5px;
+}
+.btn-close {
+    color: #0FA98F;
+    background-color: #FF729F;
+}
+.btn-light i {
+    color: #0FA98F;
+    font-size: 20px;
+  
 }

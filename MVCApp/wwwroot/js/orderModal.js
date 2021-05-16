@@ -33,12 +33,14 @@ function getItems(orderId) {
 
 <div class="card rounded p-2 m-2" >
     <div class="d-flex flex-column bd-highlight mb-3">
- <div class="p-2 bd-highlight border-bottom">
-<button class="btn-warning" data-bs-toggle="tooltip"  data-bs-placement="top" title="Edit"><a  href="Orders/OrderDetailEdit/${"order" +
+ <div class="p-2 bd-highlight border-bottom ">
+
+<div class="d-flex justify-content-center">
+<button class="btn-warning rounded m-2" data-bs-toggle="tooltip"  data-bs-placement="top" title="Edit"><a  href="Orders/OrderDetailEdit/${"order" +
                 el.orderId +
                 "product" +
                 el.productId}" ><i class="bi bi-pen"> </a></i>
-            <button id="${el.orderId}" class="btn-danger delDetail"
+            <button id="${el.orderId}" class="btn-danger delDetail rounded m-2"
                 onclick="deleteItem(${el.product.productId})"
                 data-bs-toggle="tooltip"
                 data-bs-placement="top" 
@@ -47,6 +49,8 @@ function getItems(orderId) {
                   el.orderId
                 }"    onclick="deleteItem(${el.product.productId})">
                 </i></button>
+</div>
+
                 </div>
           <img height="160px"  style="object-fit:contain;" src="${
             el.product.imageLink

@@ -206,6 +206,12 @@ namespace MVCApp.Controllers
         {
             return _context.OrderDetails.Any(e => e.OrderId == id);
         }
+        public IActionResult OrderDetailCreate(int id)
+        {
+           
+            ViewData["ProductId"] = new SelectList(_context.Products, "ProductId", "ProductName");
+            return View();
+        }
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> OrderDetailCreate(int id, OrderDetail newdetail)
