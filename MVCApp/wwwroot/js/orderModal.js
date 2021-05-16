@@ -34,6 +34,10 @@ function getItems(orderId) {
 <div class="card rounded p-2 m-2" >
     <div class="d-flex flex-column bd-highlight mb-3">
  <div class="p-2 bd-highlight border-bottom">
+<button class="btn-warning" data-bs-toggle="tooltip"  data-bs-placement="top" title="Edit"><a  href="Orders/OrderDetailEdit/${"order" +
+                el.orderId +
+                "product" +
+                el.productId}" ><i class="bi bi-pen"> </a></i>
             <button id="${el.orderId}" class="btn-danger delDetail"
                 onclick="deleteItem(${el.product.productId})"
                 data-bs-toggle="tooltip"
@@ -100,7 +104,7 @@ function deleteItem(item) {
 
 function fetchDeleteProduct(data) {
   body.innerHTML = "<h3>Loading!</h3>";
-  fetch(`Orders/WTFMAN`, {
+  fetch(`Orders/DelDetail`, {
     method: "POST",
     headers: {
       Accept: "application/json",

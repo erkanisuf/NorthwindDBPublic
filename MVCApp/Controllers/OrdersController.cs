@@ -137,8 +137,8 @@ namespace MVCApp.Controllers
             return View();
         }
 
-        // Add more items to Order Details
-        public async Task<IActionResult> OrderDetailCreate(int? id)
+        // Edit order Detail Item
+        public async Task<IActionResult> OrderDetailEdit(int? id)
         {
             ViewData["OrderId"] = id;
             ViewData["ProductId"] = new SelectList(_context.Products, "ProductId", "ProductName");
@@ -146,7 +146,67 @@ namespace MVCApp.Controllers
 
             return View();
         }
-         [HttpPost]
+        // Add more items to Order Details
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> OrderDetailEdit(string id, OrderDetail editorderDetail)
+        {
+            string searchParam = "product";
+            string orderParam = "order";
+            int index = id.IndexOf(searchParam); // finds index of 'product in href'
+            int productid =  0;
+            int orderid = 0;
+            if (index != -1)
+            {
+                //DO YOUR LOGIC
+               var result = id.Substring(index+ searchParam.Length); // and takes value after 'product' which are product`s id
+               var resultOrder = id.Substring(id.IndexOf(orderParam) + orderParam.Length,5);
+
+                int val = 0;
+                if (Int32.TryParse(result, out val)){
+                    productid = Convert.ToInt32(result);
+                    orderid = Convert.ToInt32(resultOrder);
+                    editorderDetail.ProductId = productid;
+                    editorderDetail.OrderId = orderid;
+                }
+            }
+           
+            if (orderid != editorderDetail.OrderId)
+            {
+                return NotFound();
+            }
+
+
+            ModelState.Clear();
+            if (ModelState.IsValid)
+            {
+                try
+                {
+                    _context.Update(editorderDetail);
+                    await _context.SaveChangesAsync();
+                }
+                catch (DbUpdateConcurrencyException)
+                {
+                    if (!OrderDetailExists(editorderDetail.OrderId))
+                    {
+                        return NotFound();
+                    }
+                    else
+                    {
+                        throw;
+                    }
+                }
+                return RedirectToAction(nameof(Index));
+            }
+
+            return View(editorderDetail);
+        }
+        // Checks if orderDetail exists method
+        private bool OrderDetailExists(int id)
+        {
+            return _context.OrderDetails.Any(e => e.OrderId == id);
+        }
+        [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> OrderDetailCreate(int id, OrderDetail newdetail)
         {
@@ -161,7 +221,7 @@ namespace MVCApp.Controllers
 
             return RedirectToAction(nameof(Index));
         }
-        // GET: Customers/Delete/5
+        // Deletes Order
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)
@@ -179,7 +239,7 @@ namespace MVCApp.Controllers
             return View(order);
         }
 
-        // POST: Customers/Delete/5
+        // POST: Action of Delete
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
@@ -190,6 +250,7 @@ namespace MVCApp.Controllers
             return RedirectToAction(nameof(Index));
         }
 
+        // Checks if customer exists method
         private bool CustomerExists(string id)
         {
             return _context.Orders.Any(e => e.CustomerId == id);
@@ -200,7 +261,7 @@ namespace MVCApp.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> WTFMAN([FromBody]DeleteDetail deldetail)
+        public async Task<IActionResult> DelDetail([FromBody]DeleteDetail deldetail)
         {
             var founditem = await _context.OrderDetails.Where(el=>el.ProductId == deldetail.bodyproductID).Where(el=>el.OrderId == deldetail.bodyorderID)
                 .FirstAsync();

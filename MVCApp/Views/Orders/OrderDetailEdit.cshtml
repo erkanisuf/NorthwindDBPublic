@@ -1,32 +1,25 @@
 ﻿@model MVCApp.Data.OrderDetail
 
 @{
-    ViewData["Title"] = "Add new product to order";
+    ViewData["Title"] = "OrderDetailEdit";
 }
 
-<h1>Add new product to order</h1>
+<h1>OrderDetailEdit</h1>
 
 <h4>OrderDetail</h4>
 <hr />
-<div class="row justify-content-center">
+<div class="row">
     <div class="col-md-4">
-        <form asp-action="OrderDetailCreate">
+        <form asp-action="OrderDetailEdit">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <div class="form-group">
-                <label  class="control-label">@ViewBag.OrderId</label>
-                
-            </div>
-            
-            <div class="form-group">
-                <label asp-for="ProductId" class="control-label"></label>
-                <select asp-for="ProductId" class ="form-control" asp-items="ViewBag.ProductId"></select>
-            </div>
+            <input type="hidden" asp-for="OrderId" />
+            <input type="hidden" asp-for="ProductId" />
             <div class="form-group">
                 <label asp-for="UnitPrice" class="control-label"></label>
                 <input asp-for="UnitPrice" class="form-control" />
                 <span asp-validation-for="UnitPrice" class="text-danger"></span>
             </div>
-              <div class="form-group">
+            <div class="form-group">
                 <label asp-for="Quantity" class="control-label"></label>
                 <input asp-for="Quantity" class="form-control" />
                 <span asp-validation-for="Quantity" class="text-danger"></span>
@@ -37,7 +30,7 @@
                 <span asp-validation-for="Discount" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <input type="submit" value="Add Item" class="btn btn-primary mt-2" />
+                <input type="submit" value="Save" class="btn btn-primary" />
             </div>
         </form>
     </div>
