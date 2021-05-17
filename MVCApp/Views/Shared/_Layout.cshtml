@@ -1,4 +1,6 @@
-﻿<!DOCTYPE html>
+﻿@using  Microsoft.AspNetCore.Http;
+@inject Microsoft.AspNetCore.Http.IHttpContextAccessor HttpContextAccessor;
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="utf-8" />
@@ -17,7 +19,16 @@
             <div class="container">
                 <div>
                     <button class="btn btn-light" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasScrolling" aria-controls="offcanvasScrolling"><i class="bi bi-list-nested"></i></button>
-                    <span class="text-white text-center m-5">Welcome Erkan Isuf</span>
+                    @if (HttpContextAccessor.HttpContext.Session.GetString("user") == null)
+                    {
+						<span></span>                        
+                        
+                    }
+                    else{
+                        <span class="text-white text-center m-5">Welcome @HttpContextAccessor.HttpContext.Session.GetString("user")</span>
+                    }
+               
+                
                 </div>
                 <a class="navbar-brand h1" asp-area="" asp-controller="Home" asp-action="Index">Northwind<i class="bi bi-pie-chart-fill"></i></a>
 
@@ -33,17 +44,29 @@
                         <div class="d-flex flex-column justify-content-between">
 
                             <ul class="navbar-nav flex-grow-1 d-flex flex-column justify-content-between ">
-                                <div class="btn-group  ">
-                                    <button type="button" class="btn btn-success dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
-                                        User
-                                    </button>
-                                    <ul class="dropdown-menu ">
-                                        
-                                        <li><a class="dropdown-item" asp-area="" asp-controller="User" asp-action="Login">Login</a></li>
-                                        <li><a class="dropdown-item" asp-area="" asp-controller="User" asp-action="Register">Register</a></li>
-                                        <li><form class="dropdown-item" asp-controller="User" asp-action="LogOut"><input type="submit" value="Logout" /> </form></li>
-                                    </ul>
-                                </div>
+                                 @if (HttpContextAccessor.HttpContext.Session.GetString("user") == null)
+                                {
+                                     <div class="text-center">
+                                    <div class="btn-group">
+
+                                        <button type="button" class="btn btn-success dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
+                                          <i class="bi bi-person-circle"></i>  User
+                                        </button>
+                                        <ul class="dropdown-menu ">
+
+                                            <li><a class="dropdown-item" asp-area="" asp-controller="User" asp-action="Login">Login</a></li>
+                                            <li><a class="dropdown-item" asp-area="" asp-controller="User" asp-action="Register">Register</a></li>
+
+                                        </ul>
+                                    </div>
+                                     </div>
+                                }
+                                else
+                                {  <div class="text-center">
+                                    <form  asp-controller="User" asp-action="LogOut"> <button class="btn-danger text-center p-2 rounded" type="submit" ><i class="bi bi-box-arrow-left"></i>Log out </button></form>
+                                    </div>
+                                }
+                               
                                 <li class="nav-item">
                                     <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index"><i class="bi bi-house-fill"></i>Home</a>
                                 </li>
@@ -67,7 +90,7 @@
 
             </div>
         </nav>
-        <@* div> <a asp-area="" asp-controller="User" asp-action="Register">Register</a></div>
+        @* div> <a asp-area="" asp-controller="User" asp-action="Register">Register</a></div>
         <div> <a asp-area="" asp-controller="User" asp-action="Login">Login</a></div>
         <div>  <form asp-controller="User" asp-action="LogOut"><input type="submit" value="Logout" /> </form></div> *@
     </header>

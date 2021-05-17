@@ -32,7 +32,7 @@ namespace MVCApp.Data
         public virtual DbSet<Employee> Employees { get; set; }
         public virtual DbSet<EmployeeTerritory> EmployeeTerritories { get; set; }
         public virtual DbSet<Invoice> Invoices { get; set; }
-        public virtual DbSet<Login> Logins { get; set; }
+        public virtual DbSet<User> User { get; set; }
         public virtual DbSet<Order> Orders { get; set; }
         public virtual DbSet<OrderDetail> OrderDetails { get; set; }
         public virtual DbSet<OrderDetailsExtended> OrderDetailsExtendeds { get; set; }
@@ -44,7 +44,7 @@ namespace MVCApp.Data
         public virtual DbSet<ProductsByCategory> ProductsByCategories { get; set; }
         public virtual DbSet<QuarterlyOrder> QuarterlyOrders { get; set; }
         public virtual DbSet<Region> Regions { get; set; }
-        public virtual DbSet<RegisterUser> RegisterUsers { get; set; }
+        
         public virtual DbSet<SalesByCategory> SalesByCategories { get; set; }
         public virtual DbSet<SalesTotalsByAmount> SalesTotalsByAmounts { get; set; }
         public virtual DbSet<Shipper> Shippers { get; set; }
@@ -170,7 +170,7 @@ namespace MVCApp.Data
                 entity.Property(e => e.CustomerId).IsFixedLength(true);
             });
 
-            modelBuilder.Entity<Login>(entity =>
+            modelBuilder.Entity<User>(entity =>
             {
                 entity.Property(e => e.PassWord).UseCollation("SQL_Latin1_General_CP1_CS_AS");
             });
@@ -289,19 +289,7 @@ namespace MVCApp.Data
                 entity.Property(e => e.RegionDescription).IsFixedLength(true);
             });
 
-            modelBuilder.Entity<RegisterUser>(entity =>
-            {
-                entity.HasKey(e => e.UserId)
-                    .HasName("PK__Table__1788CC4CE4056C32");
-
-                entity.Property(e => e.UserId).ValueGeneratedNever();
-
-                entity.Property(e => e.LoginErrorMessage).IsUnicode(false);
-
-                entity.Property(e => e.Password).IsUnicode(false);
-
-                entity.Property(e => e.UserName).IsUnicode(false);
-            });
+        
 
             modelBuilder.Entity<SalesByCategory>(entity =>
             {

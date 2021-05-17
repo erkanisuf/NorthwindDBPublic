@@ -8,14 +8,19 @@ using Microsoft.EntityFrameworkCore;
 
 namespace MVCApp.Data
 {
-    public partial class Login
+    [Table("User")]
+    public partial class User
     {
+        [Key]
+        public int LoginId { get; set; }
         [Required]
         [StringLength(50, MinimumLength = 4)]
         public string UserName { get; set; }
         [Required]
         [StringLength(50, MinimumLength = 4)]
         public string PassWord { get; set; }
-      
+        [Required]
+        [EmailAddress]
+        public string Email { get; set; }
     }
 }

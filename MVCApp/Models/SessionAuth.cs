@@ -12,11 +12,12 @@ using System.Threading.Tasks;
 
     public class SessionAuth: ActionFilterAttribute
     {
-        
-        public override void OnActionExecuting(ActionExecutingContext filterContext)
+    public ISession _contextSession { get; set; }
+    public override void OnActionExecuting(ActionExecutingContext filterContext)
         {
             
             var session = filterContext.HttpContext.Session;
+        _contextSession = session;
             if (session.GetString("user")  == null)
             {
                 filterContext.Result = new RedirectToRouteResult(
@@ -25,6 +26,10 @@ using System.Threading.Tasks;
                                 { "Action", "Login" }
                                 });
             }
+        }
+        public string  GetUser(){
+        return _contextSession.GetString("user");
+        
         }
     }
 
