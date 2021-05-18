@@ -4,9 +4,8 @@ for details on configuring this project to bundle and minify static web assets. 
 @import url('https://fonts.googleapis.com/css2?family=Righteous&display=swap');
 body {
     font-family: 'Open Sans', sans-serif !important;
- 
-    box-sizing:border-box;
-
+    box-sizing: border-box;
+   
 }
 .navbar-brand {
     font-family: 'Righteous', cursive;
@@ -29,6 +28,7 @@ body {
     }
 main{
     width:100%;
+   
    
 }
 a.navbar-brand {
@@ -203,4 +203,39 @@ body {
     color: #0FA98F;
     font-size: 20px;
   
+}
+
+.badge-success {
+    background-color: #808080 ;
+}
+.homepagebtn:nth-last-of-type(2) {
+    margin-top: 15px;
+    font-weight: 400;
+    font-size: 15px;
+    background-color: #0FA98F;
+    border:none;
+}
+.homepagebtn:nth-last-of-type(2):hover {
+    background-color: #0d8773; 
+}
+.homepagebtn:nth-last-of-type(1) {
+    margin-top: 15px;
+    font-weight: 400;
+    font-size: 15px;
+    border: 1px solid #0FA98F;
+    color: #0FA98F;
+}
+
+    .homepagebtn:nth-last-of-type(1):hover {
+        background-color: #0d8773;
+        color:white;
+    }
+
+.homepageNorthwind {
+    font-weight: 800;
+    color: #0FA98F;
+}
+.homepageDB {
+    font-weight:300;
+    color: #FF1F66;
 }

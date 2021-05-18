@@ -9,7 +9,7 @@ using MVCApp.Data;
 
 namespace MVCApp.Controllers
 {
-    public class CustomersController : Controller
+    public class CustomersController : BaseSecuredController
     {
         private readonly NorthwindDB _context;
 

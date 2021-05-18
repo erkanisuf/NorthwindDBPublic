@@ -25,7 +25,7 @@ namespace MVCApp
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddAntiforgery(x => x.HeaderName = "X-ANTI-FORGERY-TOKEN");
+            services.AddAntiforgery(x => x.HeaderName = "X-ANTI-FORGERY-TOKEN"); // [ValidateAntiForgeryToken] used it to test delete function , this one still not so functional
             services.AddControllersWithViews()
     .AddNewtonsoftJson(options =>
     options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore
@@ -34,7 +34,7 @@ namespace MVCApp
             services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>(); // Injection in to view
             services.AddSession(options =>
             {
-                options.IdleTimeout = TimeSpan.FromSeconds(10);
+                options.IdleTimeout = TimeSpan.FromSeconds(3600);
                 options.Cookie.HttpOnly = true;
                 options.Cookie.IsEssential = true;
                 options.Cookie.Name = "Logged";

@@ -7,10 +7,11 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using static MVCApp.Models.ProductAndOrder;
 
 namespace MVCApp.Controllers
 {
-    public class OrdersController : Controller
+    public class OrdersController : BaseSecuredController
     {
 
         private readonly NorthwindDB _context;
@@ -138,43 +139,29 @@ namespace MVCApp.Controllers
         }
 
         // Edit order Detail Item
-        public async Task<IActionResult> OrderDetailEdit(int? id)
+        public async Task<IActionResult> OrderDetailEdit(string id)
         {
-            ViewData["OrderId"] = id;
+            
+            var result = ProductAndOrder.FindIds(id); // Custom Function to get from the param href the orderid and product id
+            var detail = await _context.OrderDetails.FindAsync(result.orderid,result.productid);
+            if (detail != null) {
+                ViewData["OrderId"] = detail.OrderId;
+            }
+           
             ViewData["ProductId"] = new SelectList(_context.Products, "ProductId", "ProductName");
 
 
-            return View();
+            return View(detail);
         }
         // Add more items to Order Details
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> OrderDetailEdit(string id, OrderDetail editorderDetail)
         {
-            string searchParam = "product";
-            string orderParam = "order";
-            int index = id.IndexOf(searchParam); // finds index of 'product in href'
-            int productid =  0;
-            int orderid = 0;
-            if (index != -1)
-            {
-                //DO YOUR LOGIC
-               var result = id.Substring(index+ searchParam.Length); // and takes value after 'product' which are product`s id
-               var resultOrder = id.Substring(id.IndexOf(orderParam) + orderParam.Length,5);
-
-                int val = 0;
-                if (Int32.TryParse(result, out val)){
-                    productid = Convert.ToInt32(result);
-                    orderid = Convert.ToInt32(resultOrder);
-                    editorderDetail.ProductId = productid;
-                    editorderDetail.OrderId = orderid;
-                }
-            }
+            var result = ProductAndOrder.FindIds(id); // Custom Function to get from the param href the orderid and product id
+            editorderDetail.ProductId = result.productid;
+            editorderDetail.OrderId = result.orderid;
            
-            if (orderid != editorderDetail.OrderId)
-            {
-                return NotFound();
-            }
 
 
             ModelState.Clear();
@@ -266,7 +253,7 @@ namespace MVCApp.Controllers
         // POST: DEL Order Detail item
 
         [HttpPost]
-        [ValidateAntiForgeryToken]
+        
         public async Task<IActionResult> DelDetail([FromBody]DeleteDetail deldetail)
         {
             var founditem = await _context.OrderDetails.Where(el=>el.ProductId == deldetail.bodyproductID).Where(el=>el.OrderId == deldetail.bodyorderID)

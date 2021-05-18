@@ -1,31 +1,37 @@
-﻿@{
+﻿@using  Microsoft.AspNetCore.Http;
+@inject Microsoft.AspNetCore.Http.IHttpContextAccessor HttpContextAccessor;
+
+@{
     ViewData["Title"] = "Home Page";
 }
 
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
-</div>
 
-<button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
-  Launch demo modal
-</button>
 
-<!-- Modal -->
-<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-      </div>
-      <div class="modal-body">
-        ...
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-        <button type="button" class="btn btn-primary">Save changes</button>
-      </div>
-    </div>
-  </div>
+
+    @if (HttpContextAccessor.HttpContext.Session.GetString("user") == null)
+                    {
+						<div class=" d-flex align-items-center justify-content-center" style="min-height:80vh;">
+<div class="jumbotron text-center ">
+  <h1 class="display-4">Welcome to <span class="homepageNorthwind">Northwin</span><span class="homepageDB">DB</span></h1>
+  <p class="lead">Make sure to log in first so you can use the database !</p>
+  <hr class="my-4">
+  <p>Testing account : username: <span class="badge badge-success">teppo</span> , password: <span class="badge badge-success">testaaja</span></p>
+  <p class="lead">
+    <a class="btn btn-primary btn-lg homepagebtn" href="/User/Login" role="button">Sign in</a>  / 
+    <a class="btn btn-outline-primary btn-lg homepagebtn" href="/User/Register" role="button">Register</a>
+  </p>
 </div>
+</div>                     
+                        
+                    }
+                    else{
+                        <div class=" d-flex align-items-center justify-content-center" style="min-height:80vh;">
+<div class="jumbotron text-center ">
+  <h1 class="display-4">Welcome to <span class="homepageNorthwind">Northwin</span><span class="homepageDB">DB</span></h1>
+  <p class="lead">You are logged in as:    <span class="badge badge-success"> @HttpContextAccessor.HttpContext.Session.GetString("user")</span></p>
+  <hr class="my-4">
+  
+ 
+</div>
+</div>
+                    }

@@ -29,9 +29,10 @@ namespace MVCApp.Controllers
             newuser.PassWord = hashedPassword;
             if (ModelState.IsValid)
             {
-                _context.Add(newuser);
+                var result = _context.Add(newuser);
                 await _context.SaveChangesAsync();
-                return RedirectToAction("Index","Home");
+                HttpContext.Session.SetString("user", newuser.UserName);
+                return RedirectToAction("Index", "Home");
             }
            
             return View(newuser);
@@ -53,6 +54,7 @@ namespace MVCApp.Controllers
             {
                 return NotFound();
             }
+           
             var finduser = _context.User.SingleOrDefault(x => x.UserName == user.UserName);
             var decodePassword =  BCrypt.Net.BCrypt.Verify(user.PassWord, finduser.PassWord);
             if (finduser == null || !decodePassword)
@@ -76,8 +78,8 @@ namespace MVCApp.Controllers
         public IActionResult LogOut()
         {
             HttpContext.Session.Clear();
-            Response.Cookies.Delete("Logged");
-            return View();
+           Response.Cookies.Delete("Logged");
+           
             return RedirectToAction("Index", "Home"); 
         }
 

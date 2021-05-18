@@ -3,6 +3,10 @@ let modalbtn = document.querySelectorAll(".modalbtn");
 let span = document.getElementById("orderID");
 let aspBtn = document.getElementById("asporderID");
 let btnDetailDel = document.querySelectorAll(".delDetail");
+console.log(
+  document.getElementsByName("__RequestVerificationToken").value,
+  "XD"
+);
 modalbtn.forEach(el => {
   el.addEventListener("click", e => {
     if (e.target.id) {
@@ -86,7 +90,7 @@ function getItems(orderId) {
 
       deleteItem();
     })
-    .catch(er => console.log(er));
+    .catch(er => (body.innerHTML = "<h3>Error please try again!</h3>"));
 }
 
 function deleteItem(item) {
@@ -112,10 +116,6 @@ function fetchDeleteProduct(data) {
     method: "POST",
     headers: {
       Accept: "application/json",
-      "X-ANTI-FORGERY-TOKEN": document.getElementsByName(
-        "__RequestVerificationToken"
-      )[0].value,
-
       "Content-Type": "application/json",
       Pragma: "no-cache"
     },
@@ -123,5 +123,5 @@ function fetchDeleteProduct(data) {
   })
     .then(response => response.json())
     .then(data => getItems(data.bodyorderID))
-    .catch(er => console.log(er));
+    .catch(er => (body.innerHTML = "<h3>Error please try again!</h3>"));
 }
