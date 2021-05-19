@@ -2,6 +2,7 @@
 
 @{
     ViewData["Title"] = "User";
+   
 }
 
 <h1>User</h1>
@@ -14,23 +15,24 @@
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="form-group">
                 <label asp-for="UserName" class="control-label"></label>
-                <input asp-for="UserName" class="form-control" id="username"/>
+                <input asp-for="UserName" class="form-control" id="username" required/>
                 <span asp-validation-for="UserName" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="PassWord" class="control-label"></label>
-                <input asp-for="PassWord" class="form-control" id="password"/>
+                <input asp-for="PassWord" class="form-control" id="password" type="password" required/>
                 <span asp-validation-for="PassWord" class="text-danger"></span>
             </div>
              <div class="form-group">
                 <label asp-for="Email" class="control-label"></label>
-                <input asp-for="Email" class="form-control" id="email"/>
+                <input asp-for="Email" class="form-control" id="email" type="email" required/>
                 <span asp-validation-for="Email" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <input   type="submit" value="Create" class="btn btn-primary mt-3 " />
+                <input   type="submit" value="Register" class="btn btn-primary mt-3 " />
             </div>
         </form>
+       <p style="color:red;"> @ViewBag.Result </p>
     </div>
 </div>
 

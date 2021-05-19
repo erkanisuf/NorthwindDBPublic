@@ -58,8 +58,7 @@ namespace MVCApp.Data
         {
             if (!optionsBuilder.IsConfigured)
             {
-            optionsBuilder.UseSqlServer("Data Source=DESKTOP-FA527TG;Initial Catalog=northwindtest;Persist Security Info=True;User ID=sa;Password=Need2260"
-        );
+            optionsBuilder.UseSqlServer(Environment.GetEnvironmentVariable("DB"));
             }
         }
         // Environment.GetEnvironmentVariable("DB")

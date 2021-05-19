@@ -239,3 +239,40 @@ body {
     font-weight:300;
     color: #FF1F66;
 }
+
+@media (max-width: 1024px){
+    .searchContainer {
+     
+        flex-direction:row;
+        justify-content: center;
+        align-items:center;
+     
+    }
+    .searchInputWrapper{
+        display:flex;
+        flex-direction:column!important;
+        
+    }
+    .searchInputWrapper label{
+        display:none;
+    }
+        .searchInputWrapper select {
+            width: 90%;
+            
+        }
+        .searchInputWrapper input {
+            width:75%;
+        }
+        .btn-primary{
+            font-size:13px;
+            text-align:left;
+        }
+    .inputOrdersSearch{
+        width:40%;
+    }
+
+    .offcanvas {
+        width: 100%;
+    }
+
+}

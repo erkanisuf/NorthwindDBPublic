@@ -3,16 +3,13 @@ let modalbtn = document.querySelectorAll(".modalbtn");
 let span = document.getElementById("orderID");
 let aspBtn = document.getElementById("asporderID");
 let btnDetailDel = document.querySelectorAll(".delDetail");
-console.log(
-  document.getElementsByName("__RequestVerificationToken").value,
-  "XD"
-);
+
 modalbtn.forEach(el => {
   el.addEventListener("click", e => {
     if (e.target.id) {
       span.innerHTML = e.target.id;
       aspBtn.setAttribute("href", "Orders/OrderDetailCreate/" + e.target.id);
-      console.log(aspBtn.getAttribute("asp-route-id"));
+
       getItems(e.target.id);
     } else {
       body.innerHTML = "<h3>error !</h3>";

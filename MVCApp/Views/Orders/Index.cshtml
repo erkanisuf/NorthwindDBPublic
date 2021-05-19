@@ -8,7 +8,7 @@
 <p class="text-center">Total orders: @Model.Count()</p>
 <div class="searchContainer">
  <div class="d-inline-flex align-items-center">
- <div class="col-auto my-1 d-inline-flex align-items-center">
+ <div class="col-auto my-1 d-inline-flex align-items-center searchInputWrapper">
 <label class="col-auto mx-2" >Choose a filter:</label>
 <select onchange="onSelect()" id="itemsSelect" class="form-select">
  <option value=0 selected="selected"> Select Filter</option>
@@ -27,7 +27,7 @@
     <option value=13>  @Html.DisplayNameFor(model => model.ShipVia) </option>
 </select>
 </div>
-<div class="col-auto my-1">
+<div class="col-auto my-1 inputOrdersSearch">
 <input   class="form-control mx-2" type="text" id="myInputSearch" onkeyup="filterTable()" placeholder="Search for names.." title="Type in a name">
 </div>
 </div>
@@ -37,7 +37,7 @@
 </div>
 </div>
 
-
+<div class="table-responsive">
 <table class="table responsive dark table-hover" id="myTable">
     <thead>
         <tr class="table-dark">
@@ -152,6 +152,7 @@
         }
     </tbody>
 </table>
+</div>
 <div class="modal fade" id="orderModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog modal-xl">
     <div class="modal-content">

@@ -12,7 +12,7 @@
       "commandName": "IISExpress",
       "launchBrowser": true,
       "environmentVariables": {
-        "DB": "Data Source=DESKTOP-FA527TG;Initial Catalog=northwindtest;Persist Security Info=True;User ID=sa;Password=Need2260",
+        "DB": "HERE GOES YOUR CONNECTION STRING TO YOUR DATABASE!",
         "ASPNETCORE_ENVIRONMENT": "Development"
       },
       "use64Bit": true
@@ -21,7 +21,7 @@
       "commandName": "Project",
       "launchBrowser": true,
       "environmentVariables": {
-        "DB": "Data Source=DESKTOP-FA527TG;Initial Catalog=northwindtest;Persist Security Info=True;User ID=sa;Password=Need2260",
+        "DB": "HERE GOES YOUR CONNECTION STRING TO YOUR DATABASE!",
         "ASPNETCORE_ENVIRONMENT": "Development"
       },
       "dotnetRunMessages": "true",

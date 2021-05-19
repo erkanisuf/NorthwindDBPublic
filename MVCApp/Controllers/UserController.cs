@@ -25,7 +25,23 @@ namespace MVCApp.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("UserName,PassWord,Email")] User newuser)
         {
-            string hashedPassword = BCrypt.Net.BCrypt.HashPassword(newuser.PassWord);
+            if (!ModelState.IsValid)
+            {
+                return View("Register", newuser);
+            }
+            // Check if username and email already is in DB;
+            var dupeName = _context.User.Any(el => el.UserName == newuser.UserName);
+            var dupeEmail =  _context.User.Any(el => el.Email == newuser.Email);
+            if (dupeName) {
+                
+                ViewBag.Result = $"User with username {newuser.UserName}  already exists!";
+                return View("Register", newuser);
+            }
+            if (dupeEmail) {
+                ViewBag.Result = $"Email:  {newuser.Email}  already exists!";
+                return View("Register", newuser);
+            }
+            string hashedPassword = BCrypt.Net.BCrypt.HashPassword(newuser.PassWord); // Bcrypt password hashing and later in login Verifying
             newuser.PassWord = hashedPassword;
             if (ModelState.IsValid)
             {
@@ -77,6 +93,7 @@ namespace MVCApp.Controllers
         [ValidateAntiForgeryToken]
         public IActionResult LogOut()
         {
+            // Clears Session and cookies.
             HttpContext.Session.Clear();
            Response.Cookies.Delete("Logged");
            
